@@ -1,0 +1,46 @@
+{
+  "namespaces": [
+    {
+      "mask": "component",
+      "folder": true,
+      "putTo": "/src/components",
+      "template": ".polymer-ide-tools/templates/component.html"
+    },
+    {
+      "mask": "${FOLDER_NAME}-.*",
+      "folder": false,
+      "putTo": "./",
+      "template": ".polymer-ide-tools/templates/component.html"
+    },
+
+    {
+      "mask": "-page",
+      "putTo": "./pages",
+      "folder": true,
+      "template": ".polymer-ide-tools/templates/page.html"
+    },
+    {
+      "mask": ".*",
+      "putTo": "./",
+      "template": ".polymer-ide-tools/templates/component.html"
+    }
+  ],
+  "import": {
+    "ignoredTags": ["-page$", "-lazy-component"],
+    "ignoreFolderNames": [
+      "_bower_components",
+      "demo",
+      "old_sources",
+      "test"
+    ]
+  },
+  "webcomponents": {
+    "active": true,
+    "owners": [
+      "PolymerElements",
+      "vaadin",
+      "GoogleWebComponents",
+      "firebase"
+    ]
+  }
+}
