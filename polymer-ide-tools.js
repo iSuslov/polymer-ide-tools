@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const argv = require('minimist')(process.argv.slice(2)),
     webcomponents = require('./webcomponents.js'),
     fs = require('fs'),
