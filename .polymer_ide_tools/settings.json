@@ -1,53 +1,56 @@
 {
-  "namespaces": [
-    {
-      "mask": "component",
-      "folder": true,
-      "putTo": "/src/components",
-      "template": ".polymer-ide-tools/templates/component.html"
-    },
-    {
-      "mask": "${FOLDER_NAME}-.*",
-      "folder": false,
-      "putTo": "./",
-      "template": ".polymer-ide-tools/templates/component.html"
-    },
-    {
-      "mask": "-page",
-      "putTo": "./pages",
-      "folder": true,
-      "template": ".polymer-ide-tools/templates/page.html"
-    },
-    {
-      "mask": ".*",
-      "putTo": "./",
-      "template": ".polymer-ide-tools/templates/component.html"
-    }
-  ],
-  "import": {
-    "ignoredTags": ["-page$", "-lazy-component"],
-    "ignoreFolderNames": [
-      "ide_tools",
-      "demo",
-      "test"
-    ],
-    "resolve":{
-      "iron-flex-layout-classes": [
-        "iron-flex",
-        "iron-flex-reverse",
-        "iron-flex-alignment",
-        "iron-flex-factors",
-        "iron-positioning"
-      ]
-    }
-  },
-  "webcomponents": {
-    "active": true,
-    "owners": [
-      "PolymerElements",
-      "vaadin",
-      "GoogleWebComponents",
-      "firebase"
-    ]
-  }
+	"namespaces": [
+		{
+			"mask": "component",
+			"folder": true,
+			"putTo": "/src/components",
+			"template": ".polymer_ide_tools/component.html"
+		},
+		{
+			"mask": "${FOLDER_NAME}-.*",
+			"folder": false,
+			"putTo": "./",
+			"template": ".polymer_ide_tools/component.html"
+		},
+		{
+			"mask": "-page",
+			"putTo": "./pages",
+			"folder": true,
+			"template": ".polymer_ide_tools/page.html"
+		},
+		{
+			"mask": ".*",
+			"putTo": "./",
+			"template": ".polymer_ide_tools/component.html"
+		}
+	],
+	"import": {
+		"ignoredTags": [
+			"-page$",
+			"-lazy-component"
+		],
+		"ignoreFolderNames": [
+			"ide_tools",
+			"demo",
+			"test"
+		],
+		"resolve": {
+			"iron-flex-layout-classes": [
+				"iron-flex",
+				"iron-flex-reverse",
+				"iron-flex-alignment",
+				"iron-flex-factors",
+				"iron-positioning"
+			]
+		}
+	},
+	"webcomponents": {
+		"active": true,
+		"owners": [
+			"PolymerElements",
+			"vaadin",
+			"GoogleWebComponents",
+			"firebase"
+		]
+	}
 }
