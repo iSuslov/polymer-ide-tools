@@ -87,11 +87,13 @@ function lookUpAllImports(settings, filePath, parseResult, projectRoot) {
     const notFoundImports = new Set();
     const resolve = getResolvedNames(settings);
     parseResult.allElements.forEach(el => {
-        if (parseResult.imports[el]) {
-            imports.set(el, {tag: parseResult.imports[el].tag, href: parseResult.imports[el].attributes.href});
-            delete parseResult.imports[el];
+        const elResolved = resolve[el] || el;
+        let importObj = parseResult.imports[elResolved];
+        if (importObj) {
+            imports.set(el, {tag: importObj.tag, href: importObj.attributes.href});
+            delete parseResult.imports[elResolved];
         } else {
-            const lookupResult = lookup.lookForElement(resolve[el] || el, filePath, settings.import.ignoreFolderNames || [], projectRoot)
+            const lookupResult = lookup.lookForElement(elResolved, filePath, settings.import.ignoreFolderNames || [], projectRoot)
             if (!lookupResult) {
                 console.warn("No file found for element ", el)
                 notFoundImports.add(el)
