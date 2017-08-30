@@ -22,7 +22,7 @@ exports.printIntro = () => {
     log(clc.bold.italic("by Ivan Suslov. https://polymer-ide-tools.com"))
 }
 exports.version = () => {
-    log(versionChecker.getVersion())
+    log("v"+versionChecker.getVersion())
 }
 exports.help = (command) => {
     switch (command){
@@ -31,15 +31,16 @@ exports.help = (command) => {
         case "init":
         default:
             log(clc.bold.underline("\n\nAvailable Commands\n"))
-            log("init           Creates `ide_tools` folder in the root of your project with default settings and templates")
+            log("init           Creates `.polymer_ide_tools` folder in the root of your project with default settings and templates")
             log("import         Checks your file for used components and looks for it in your project folders and on webcomponents.org")
             log("component      Creates component based on naming rules defined in settings.json")
             log(clc.bold.underline("\n\nGlobal options\n"))
-            log(`${clc.bold("--root ")}${clc.underline("string")}\t\t\t\t\t\tThe root directory of your project. Defaults to the first\n\t\t\t\t\t\t\t\t\tfolder containing 'polymer.json' up through hierarchy.`)
-            log(`${clc.bold("--root-marker ")}${clc.underline("string")}\t\t\t\tFile name to automatically determine the root directory.\n\t\t\t\t\t\t\t\t\tDefaults to the 'polymer.json'.`)
-            log(`${clc.bold("--tools ")}${clc.underline("string")}\t\t\t\t\t\tThe directory containing templates and settings. Defaults\n\t\t\t\t\t\t\t\t\tto the 'ide_tools' in the root of your project.`)
-            log(`${clc.bold("-v, --verbose")}\t\t\t\t\t\tturn on debugging output`)
-            log(`${clc.bold("-h, --help")}\t\t\t\t\t\t\tprint out helpful usage information`)
-            log(`${clc.bold("\n--version")}\t\t\t\t\t\t\tprint current version`)
+            log(`${clc.bold("--root ")}${clc.underline("string")}\t\tThe root directory of your project. Defaults to the first\n\t\t\tfolder containing 'polymer.json' up through hierarchy.`)
+            log(`${clc.bold("--root-marker ")}${clc.underline("string")}\tFile name to automatically determine the root directory.\n\t\t\tDefaults to the 'polymer.json'.`)
+            log(`${clc.bold("--tools ")}${clc.underline("string")}\t\tThe directory containing templates and settings. Defaults\n\t\t\tto the '.polymer_ide_tools' in the root of your project.`)
+            log(`${clc.bold("-v, --verbose")}\t\tturn on debugging output`)
+            log(`${clc.bold("-h, --help")}\t\tprint out helpful usage information`)
+            log(`${clc.bold("--version")}\t\tprint current version`)
+            log("\n")
     }
 }

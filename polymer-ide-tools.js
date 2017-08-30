@@ -8,8 +8,7 @@ const argv = require('minimist')(process.argv.slice(2)),
     bower = require('./bower.js'),
     utils = require('./utils.js'),
     versionChecker = require('./version-checker.js'),
-    logger = require('./logger.js'),
-    settings = require("./ide_tools/settings.json");
+    logger = require('./logger.js');
 
 const command = argv._[0];
 
@@ -24,17 +23,17 @@ switch (command) {
         }
         return;
     case "init":
-        const _settings = require("./ide_tools/settings.json"),
-            templates = require("./ide_tools/templates.js"),
+        const _settings = require("./.polymer_ide_tools/settings.json"),
+            templates = require("./.polymer_ide_tools/templates.js"),
             processPath = process.cwd();
         try {
-            const dir = processPath + path.sep + "ide_tools" + path.sep;
+            const dir = processPath + path.sep + ".polymer_ide_tools" + path.sep;
             fs.mkdirSync(dir)
             fs.writeFileSync(dir + "component.html", templates.component);
             fs.writeFileSync(dir + "page.html", templates.page);
             fs.writeFileSync(dir + "settings.json", JSON.stringify(_settings, null, "\t"));
         } catch (e) {
-            console.error("Directory `ide_tools` already exists")
+            console.error("Directory `.polymer_ide_tools` already exists")
         }
         return;
     default:
@@ -49,9 +48,7 @@ switch (command) {
 versionChecker.checkVersion();
 
 function organizeImports() {
-    const filePath = argv.f;
-    const projectRoot = lookup.getProjectRoot(filePath);
-    const file = fs.readFileSync(filePath, "utf-8");
+    fetchSubjects()
 
     console.log(`Parsing file ${filePath}...`);
     const parseResult = parser.parse(settings, file);
@@ -72,8 +69,7 @@ function organizeImports() {
 }
 
 function createElement() {
-    const filePath = argv.f;
-    const projectRoot = lookup.getProjectRoot(filePath);
+    fetchSubjects()
     const file = fs.readFileSync(filePath, "utf-8");
 
     var fileArray = file.split('\n');
@@ -127,4 +123,15 @@ function createElement() {
         return false;
     }
 
+}
+
+var filePath = null;
+var projectRoot = null;
+var settings = null;
+var file = null;
+function fetchSubjects() {
+    filePath = argv.f || argv.file;
+    projectRoot = projectRoot || lookup.getProjectRoot(filePath);
+    settings = settings || JSON.parse(fs.readFileSync(projectRoot + path.sep + ".polymer_ide_tools/settings.json", "utf-8"))
+    file = file || fs.readFileSync(filePath, "utf-8")
 }
