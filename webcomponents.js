@@ -1,5 +1,6 @@
 const https = require("https");
 
+
 exports.search = function (settings, componentsSet) {
     var requestCount = componentsSet.size;
     const searchResult = [];
@@ -22,14 +23,14 @@ exports.search = function (settings, componentsSet) {
                             allResults.push(`${res.owner}/${res.repo}`)
                             if (settings.webcomponents.owners.indexOf(res.owner) !== -1) {
                                 if (!goodMatch) {
-                                    desiredImport = res;
+                                    goodMatch = res;
                                 }
-                                if(!exactMatch && element === desiredImport.repo){
+                                if(!exactMatch && element === res.repo){
                                     exactMatch = res;
                                 }
                             }
-                        })
-                        desiredImport === exactMatch || goodMatch;
+                        });
+                        desiredImport = exactMatch || goodMatch;
                         if (desiredImport) {
                             var bowerString = `${desiredImport.owner}/${desiredImport.repo}`
                             console.log(`webcomponents.org ${element} found ${bowerString}`)
@@ -59,6 +60,6 @@ exports.search = function (settings, componentsSet) {
 
 
 function getUrl(component) {
-    return `https://www.webcomponents.org/api/search/${component}%20kind:element?limit=2`
+    return `https://www.webcomponents.org/api/search/${component}%20kind:element?limit=5`
 }
 

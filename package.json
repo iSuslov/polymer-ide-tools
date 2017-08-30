@@ -1,14 +1,20 @@
 {
-  "name": "component-creator",
+  "name": "polymer-ide-tools",
   "version": "0.0.1",
   "description": "",
-  "main": "create-component.js",
+  "main": "polymer-ide-tools.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "bin": {
+    "polymer-ide-tools": "polymer-ide-tools.js"
+  },
   "dependencies": {
-    "minimist": "^1.2.0"
+    "cli-color": "^1.2.0",
+    "inquirer": "^3.2.2",
+    "minimist": "^1.2.0",
+    "select-shell": "^1.0.0"
   }
 }

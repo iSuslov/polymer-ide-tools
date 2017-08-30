@@ -7,24 +7,52 @@ const argv = require('minimist')(process.argv.slice(2)),
     lookup = require('./lookup.js'),
     bower = require('./bower.js'),
     utils = require('./utils.js'),
-    settings = require("./settings.json");
+    versionChecker = require('./version-checker.js'),
+    logger = require('./logger.js'),
+    settings = require("./ide_tools/settings.json");
 
-const filePath = argv.f;
-const projectRoot = lookup.getProjectRoot(filePath);
-const file = fs.readFileSync(filePath, "utf-8");
+const command = argv._[0];
 
 
-if (argv._.indexOf("import") !== -1) {
-    organizeImports()
-} else if (argv._.indexOf("init") !== -1) {
-    if (createElement()) {
+switch (command) {
+    case "import":
         organizeImports()
-    }
-} else {
-    console.log("import or init?")
+        return;
+    case "component":
+        if (createElement()) {
+            organizeImports()
+        }
+        return;
+    case "init":
+        const _settings = require("./ide_tools/settings.json"),
+            templates = require("./ide_tools/templates.js"),
+            processPath = process.cwd();
+        try {
+            const dir = processPath + path.sep + "ide_tools" + path.sep;
+            fs.mkdirSync(dir)
+            fs.writeFileSync(dir + "component.html", templates.component);
+            fs.writeFileSync(dir + "page.html", templates.page);
+            fs.writeFileSync(dir + "settings.json", JSON.stringify(_settings, null, "\t"));
+        } catch (e) {
+            console.error("Directory `ide_tools` already exists")
+        }
+        return;
+    default:
+        if (argv.version) {
+            logger.version();
+        } else {
+            logger.printIntro();
+            logger.help();
+        }
 }
 
+versionChecker.checkVersion();
+
 function organizeImports() {
+    const filePath = argv.f;
+    const projectRoot = lookup.getProjectRoot(filePath);
+    const file = fs.readFileSync(filePath, "utf-8");
+
     console.log(`Parsing file ${filePath}...`);
     const parseResult = parser.parse(settings, file);
     console.log(`Mapping imports...`);
@@ -44,6 +72,10 @@ function organizeImports() {
 }
 
 function createElement() {
+    const filePath = argv.f;
+    const projectRoot = lookup.getProjectRoot(filePath);
+    const file = fs.readFileSync(filePath, "utf-8");
+
     var fileArray = file.split('\n');
     var line = fileArray[argv.l - 1];
     var componentName = line.match(/<[\w+\-]*[^ ]/g)
@@ -80,7 +112,7 @@ function createElement() {
     }
     putTo += path.sep + componentName + ".html";
 
-    var templatePath = projectRoot +path.sep+ namespace.template
+    var templatePath = projectRoot + path.sep + namespace.template
 
     var templateContent = fs.readFileSync(templatePath, "utf-8")
         .replace(/\$NAME_CAMELCASED/g, componentName.split("-").map(utils.capitalize).join(""))

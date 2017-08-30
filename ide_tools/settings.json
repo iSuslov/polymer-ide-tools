@@ -12,7 +12,6 @@
       "putTo": "./",
       "template": ".polymer-ide-tools/templates/component.html"
     },
-
     {
       "mask": "-page",
       "putTo": "./pages",
@@ -28,9 +27,8 @@
   "import": {
     "ignoredTags": ["-page$", "-lazy-component"],
     "ignoreFolderNames": [
-      "_bower_components",
+      "ide_tools",
       "demo",
-      "old_sources",
       "test"
     ]
   },
