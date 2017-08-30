@@ -126,12 +126,12 @@ function createElement() {
 }
 
 var filePath = null;
-var projectRoot = null;
+var projectRoot = argv.root;
 var settings = null;
 var file = null;
 function fetchSubjects() {
     filePath = argv.f || argv.file;
-    projectRoot = projectRoot || lookup.getProjectRoot(filePath);
+    projectRoot = projectRoot || lookup.getProjectRoot(filePath, argv["root-marker"]);
     settings = settings || JSON.parse(fs.readFileSync(projectRoot + path.sep + ".polymer_ide_tools/settings.json", "utf-8"))
     file = file || fs.readFileSync(filePath, "utf-8")
 }

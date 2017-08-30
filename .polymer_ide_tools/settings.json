@@ -30,7 +30,16 @@
       "ide_tools",
       "demo",
       "test"
-    ]
+    ],
+    "resolve":{
+      "iron-flex-layout-classes": [
+        "iron-flex",
+        "iron-flex-reverse",
+        "iron-flex-alignment",
+        "iron-flex-factors",
+        "iron-positioning"
+      ]
+    }
   },
   "webcomponents": {
     "active": true,

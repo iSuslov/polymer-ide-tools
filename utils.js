@@ -88,12 +88,13 @@ function lookUpAllImports(settings, filePath, parseResult, projectRoot) {
     const imports = new Map();
     const unusedImports = [];
     const notFoundImports = new Set();
+    const resolve = getResolvedNames(settings);
     parseResult.allElements.forEach(el => {
         if (parseResult.imports[el]) {
             imports.set(el, {tag: parseResult.imports[el].tag, href: parseResult.imports[el].attributes.href});
             delete parseResult.imports[el];
         } else {
-            const lookupResult = lookup.lookForElement(el, filePath, settings.import.ignoreFolderNames || [], projectRoot)
+            const lookupResult = lookup.lookForElement(resolve[el] || el, filePath, settings.import.ignoreFolderNames || [], projectRoot)
             if (!lookupResult) {
                 console.warn("No file found for element ", el)
                 notFoundImports.add(el)
@@ -138,4 +139,15 @@ function getHeader(href) {
         var name = parseRes.split("/")[0];
         return exports.capitalize(name.split("-")[0]);
     }
+}
+
+function getResolvedNames(settings) {
+    const resolve = settings.import.resolve;
+    const map = {};
+    for(let name in resolve){
+        resolve[name].forEach((el)=>{
+            map[el] = name;
+        })
+    }
+    return map;
 }

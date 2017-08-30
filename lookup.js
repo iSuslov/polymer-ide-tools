@@ -38,13 +38,13 @@ exports.filterCustomElements = function (tagsArray) {
         return !!el && el.match(/\w+-\w+/) && el !== "dom-module"
     })
 }
-exports.getProjectRoot = function(filePath) {
+exports.getProjectRoot = function(filePath, name = "polymer.json") {
     const backObject = utils.stepBack(filePath);
     if (!backObject.path) {
-        throw new Error("No polymer.json file found. Can not find project root folder.")
+        throw new Error(`No ${name} file found. Can not find project root folder.`)
     }
     const dirContents = fs.readdirSync(backObject.path);
-    if (dirContents.indexOf("polymer.json") !== -1) {
+    if (dirContents.indexOf(name) !== -1) {
         return backObject.path;
     } else {
         return exports.getProjectRoot(backObject.path);
