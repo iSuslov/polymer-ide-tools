@@ -1,6 +1,3 @@
-/**
- * Created by User on 8/22/17.
- */
 const path = require('path');
 const lookup = require('./lookup.js');
 

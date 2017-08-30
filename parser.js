@@ -1,5 +1,4 @@
-
-var fs = require('fs');
+const fs = require('fs');
 const utils = require('./utils.js');
 
 exports.parseTags = function (file) {
